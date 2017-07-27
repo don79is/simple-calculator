@@ -83,7 +83,7 @@ var buttonArray = [
         "buttonClass": "btn btn-success"
     },
     {
-        "type": "number",
+        "type": "action",
         "value": "+-",
         "buttonClass": "btn btn-success"
     },
@@ -148,14 +148,43 @@ function handleClick(e) {
                 }
 
         }
-        console.log($a);
+
         $('input').val($a);
     }
 
 
     else if ($b.attr('type') === 'action') {
+        switch ($b.val()) {
+            case 'C':
+                $a = '0';
+                $('input').val($a);
+
+                break;
+            case "<<":
+                $a = $a.substring(0, $a.length - 1)
+                if ($a.length === 0) {
+                    $a = '0';
+                    $('input').val($a);
+
+                }
+                $('input').val($a);
+                break;
+
+            case"+-":
+                if ($a[0] === "-") {
+                    $a = $a.substring(1, $a.length);
+                } else {
+                    if ($a !== '0')
+                        $a = "-" + $a;
+                }
+                $('input').val($a);
+                break;
+
+
+        }
 
     }
+    console.log($a)
 }
 $(document).ready(function () {
     $("button").click(handleClick);
