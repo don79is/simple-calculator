@@ -15,12 +15,12 @@ var buttonArray = [
     {
         "type": "action",
         "value": "%",
-        "buttonClass": "btn btn-success"
+        "buttonClass": "btn btn-success off"
     },
     {
         "type": "action",
         "value": "/",
-        "buttonClass": "btn btn-success"
+        "buttonClass": "btn btn-success off"
     },
     {
         "type": "number",
@@ -40,7 +40,7 @@ var buttonArray = [
     {
         "type": "action",
         "value": "*",
-        "buttonClass": "btn btn-success"
+        "buttonClass": "btn btn-success off"
     },
     {
         "type": "number",
@@ -60,7 +60,7 @@ var buttonArray = [
     {
         "type": "action",
         "value": "-",
-        "buttonClass": "btn btn-success"
+        "buttonClass": "btn btn-success off"
     },
     {
         "type": "number",
@@ -80,12 +80,12 @@ var buttonArray = [
     {
         "type": "action",
         "value": "+",
-        "buttonClass": "btn btn-success"
+        "buttonClass": "btn btn-success off"
     },
     {
         "type": "action",
         "value": "+-",
-        "buttonClass": "btn btn-success"
+        "buttonClass": "btn btn-success off"
     },
     {
         "type": "number",
@@ -100,7 +100,7 @@ var buttonArray = [
     {
         "type": "action",
         "value": "=",
-        "buttonClass": "btn btn-danger"
+        "buttonClass": "btn btn-danger off"
     }
 
 
@@ -145,6 +145,7 @@ function handleClick(e) {
                     $a = $b.val();
                 else {
                     $a += $b.val();
+                    console.log(action)
                 }
 
         }
@@ -155,17 +156,32 @@ function handleClick(e) {
 
     else if ($b.attr('type') === 'action') {
         switch ($b.val()) {
+
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+            case "%":
+
+                action = ($b.val());
+                $('.off').attr('disabled', true);
+
+                $a += ' ' + action + ' ';
+                $('input').val($a);
+                console.log(action)
+                break;
+
             case 'C':
+                action = 'C';
+                $('.off').attr('disabled', false);
                 $a = '0';
                 $('input').val($a);
-
                 break;
+
             case "<<":
                 $a = $a.substring(0, $a.length - 1)
                 if ($a.length === 0) {
                     $a = '0';
-                    $('input').val($a);
-
                 }
                 $('input').val($a);
                 break;
