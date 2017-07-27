@@ -106,6 +106,7 @@ var buttonArray = [
 
 ];
 
+var $a = '0';
 // script creates html div tag, inserts input field and table of buttons
 
 $(document).ready(function () {
@@ -123,21 +124,40 @@ $(document).ready(function () {
 
 function handleClick(e) {
     var $b = $(e.currentTarget);
-    $('input').val($b.val());
-    console.log($b.attr('type'), $b.attr('value'));
 
-    if ($b.attr('type') === 'action') {
-        alert('action');
+    if ($b.attr('type') === 'number') {
+        switch ($b.val()) {
+            case '.':
+                if ($a.indexOf('.') === -1) {
+                    $a += $b.val();
+                }
+                break;
+            case '0':
+                if ($a.length === 1 && $a === '0') {
+                }
+                else {
+                    $a += $b.val();
+                }
 
+                break;
+            default:
+                if ($a.length === 1 && $a === '0')
+                    $a = $b.val();
+                else {
+                    $a += $b.val();
+                }
 
+        }
+        console.log($a);
+        $('input').val($a);
     }
-    else if ($b.attr('type') === 'number') {
-        alert('number');
 
-        
+
+    else if ($b.attr('type') === 'action') {
+
     }
 }
-    $(document).ready(function () {
-        $("button").click(handleClick);
+$(document).ready(function () {
+    $("button").click(handleClick);
 
-    });
+});
