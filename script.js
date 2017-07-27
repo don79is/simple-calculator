@@ -5,102 +5,102 @@ var buttonArray = [
     {
         "type": "action",
         "value": "C",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "action",
         "value": "<<",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "action",
         "value": "%",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "action",
         "value": "/",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "number",
         "value": 9,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "number",
         "value": 8,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "number",
         "value": 7,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "action",
         "value": "*",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "number",
         "value": 4,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "number",
         "value": 5,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "number",
         "value": 6,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "action",
         "value": "-",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "number",
         "value": 1,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "number",
         "value": 2,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "number",
         "value": 3,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "action",
         "value": "+",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "number",
         "value": "+-",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "number",
         "value": 0,
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-default"
     },
     {
         "type": "number",
         "value": ".",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-success"
     },
     {
         "type": "action",
         "value": "=",
-        "buttonClass": "grey"
+        "buttonClass": "btn btn-danger"
     }
 
 
@@ -113,14 +113,31 @@ $(document).ready(function () {
     $('#buttonField').append("<input>"); // change to read only, give value
 
     $.each(buttonArray, function (index, buttonArray) {
-        $("#buttonField").append($("<button s>" + buttonArray.value + "</button>").attr("class", buttonArray.buttonClass).attr("type", buttonArray.type).attr("value", buttonArray.value));
+        $("#buttonField").append($("<button s>" + buttonArray.value + "</button>")
+            .attr("class", buttonArray.buttonClass).attr("type", buttonArray.type).attr("value", buttonArray.value));
     });
 });
 
 // when clicked gets button value
 
-$(document).ready(function () {
-    $("button").click(function () {
-        console.log(this.value);
+
+function handleClick(e) {
+    var $b = $(e.currentTarget);
+    $('input').val($b.val());
+    console.log($b.attr('type'), $b.attr('value'));
+
+    if ($b.attr('type') === 'action') {
+        alert('action');
+
+
+    }
+    else if ($b.attr('type') === 'number') {
+        alert('number');
+
+        
+    }
+}
+    $(document).ready(function () {
+        $("button").click(handleClick);
+
     });
-});
