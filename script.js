@@ -109,6 +109,17 @@ var buttonArray = [
 var $a = '0';
 // script creates html div tag, inserts input field and table of buttons
 
+var numbers = ['0', ''];
+var actions = [];
+
+
+var ACTION_INCREMENT = 'INCRE',
+    ACTION_REPLACE = 'REP',
+    ACTION_DELETE = 'DELETE',
+    ACTION_PLUSMINUS = '+-',
+    ACTION_CALCULATE = 'CALKU';
+
+
 $(document).ready(function () {
     $('body').prepend("<div id='buttonField'></div>");
     $('#buttonField').append("<input>"); // change to read only, give value
@@ -121,36 +132,81 @@ $(document).ready(function () {
 
 // when clicked gets button value
 
+function updateInput() {
+    var res = '';
+    for (var i = 0; i < numbers.length; i++) {
+
+        if (numbers[i] !== '0') {
+            res += numbers[i];
+        }
+
+        if (actions[i]) {
+            res += "" + actions[i] + "";
+        }
+    }
+    $('input').val(res);
+    console.log(numbers, actions);
+}
+
 
 function handleClick(e) {
     var $b = $(e.currentTarget);
 
-    if ($b.attr('type') === 'number') {
-        switch ($b.val()) {
-            case '.':
-                if ($a.indexOf('.') === -1) {
-                    $a += $b.val();
-                }
-                break;
-            case '0':
-                if ($a.length === 1 && $a === '0') {
-                }
-                else {
-                    $a += $b.val();
+    function updateNumber(action, value) {
+        switch (action) {
+
+            case ACTION_INCREMENT:
+                var n = numbers [actions.length];
+
+                switch (value) {
+                    case '.':
+                        if (n.indexOf('.') === -1) {
+                            n += value;
+
+                        }
+                        break;
+
+                    case '0':
+                        if (n.length === 1 && n === '0') {
+                        }
+                        else {
+                            n += value;
+
+                        }
+                        break;
+
+                    default:
+                        if (n.length === 1 && n === '0')
+                            n = value;
+                        else {
+                            n += value;
+                        }
+
                 }
 
+                numbers [actions.length] = n;
                 break;
-            default:
-                if ($a.length === 1 && $a === '0')
-                    $a = $b.val();
-                else {
-                    $a += $b.val();
-                    console.log(action)
-                }
 
+            case ACTION_CALCULATE:
+
+                break;
+
+            case ACTION_REPLACE:
+
+                break;
+            case ACTION_DELETE:
+
+                break;
+            case ACTION_PLUSMINUS:
+
+                break;
         }
 
-        $('input').val($a);
+
+    }
+
+    if ($b.attr('type') === 'number') {
+        updateNumber(ACTION_INCREMENT, $b.val())
     }
 
 
@@ -163,46 +219,94 @@ function handleClick(e) {
             case "/":
             case "%":
 
-                action = ($b.val());
-                $('.off').attr('disabled', true);
+                // updateNumber($b.val(), ACTION_INCREMENT);
+                if (numbers[numbers.length - 1] !== '0') {
+                    actions.push($b.val());
+                    numbers [actions.length] = '0';
+                }
+                else {
+                    actions.pop();
+                    actions.push($b.val());
 
-                $a += ' ' + action + ' ';
-                $('input').val($a);
-                console.log(action)
+                }
+                // action = ($b.val());
+                // $('.off').attr('disabled', true);
+                //
+                // $a += ' ' + action + ' ';
+                // $('input').val($a);
+                // console.log(action)
                 break;
 
             case 'C':
-                action = 'C';
-                $('.off').attr('disabled', false);
-                $a = '0';
-                $('input').val($a);
+                // action = 'C';
+                // $('.off').attr('disabled', false);
+                // $a = '0';
+                // $('input').val($a);
+                updateNumber(ACTION_DELETE);
+
+                break;
+            case '=':
+
+                var a = numbers[0];
+                var b;
+
+                for (var i = 1; i < numbers.length; i++) {
+
+                    b = numbers[i];
+
+                    switch (actions[i - 1]) {
+                        case '+':
+                            a += b;
+                            break;
+                        case '-':
+                            a -= b;
+                            break;
+                        case '%':
+                            a %= b;
+                            break;
+                        case '/':
+                            a /= b;
+                            break;
+                        case '*':
+                            a *= b;
+                            break;
+                    }
+
+                }
+                console.log(a);
+
                 break;
 
             case "<<":
-                $a = $a.substring(0, $a.length - 1)
-                if ($a.length === 0) {
-                    $a = '0';
-                }
-                $('input').val($a);
+                // $a = $a.substring(0, $a.length - 1)
+                updateNumber(ACTION_DELETE);
+
+                // if ($a.length === 0) {
+                //     $a = '0';
+                // }
+                // $('input').val($a);
                 break;
 
             case"+-":
-                if ($a[0] === "-") {
-                    $a = $a.substring(1, $a.length);
-                } else {
-                    if ($a !== '0')
-                        $a = "-" + $a;
-                }
-                $('input').val($a);
+                // if ($a[0] === "-") {
+                updateNumber(ACTION_PLUSMINUS, $b.val());
+
+                // } else {
+                //     if ($a !== '0')
+                //         // $a = "-" + $a;
+                //         updateNumber($b.val,ACTION_PLUSMINUS )
+                // }
+                // // $('input').val($a);
                 break;
-
-
         }
 
     }
-    console.log($a)
+    updateInput(numbers, actions);
 }
+
+
 $(document).ready(function () {
     $("button").click(handleClick);
 
 });
+
