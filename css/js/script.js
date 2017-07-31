@@ -16,7 +16,8 @@ $(document).ready(function () {
     $('body').prepend("<div id='buttonField'></div>");
 
     // change to read only, give value
-    $('#buttonField').append("<input value='0' disabled>");
+    $('#buttonField').append("<input style='color: ghostwhite' value='0' disabled>");
+    $('#buttonField').append("<br>");
 
     $.each(buttonArray, function (index, buttonArray) {
         $("#buttonField").append($("<button s>" + buttonArray.value + "</button>")
