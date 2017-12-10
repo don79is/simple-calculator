@@ -1,29 +1,79 @@
-body{
-    margin-left: 60px;
+body {
+    background: url(http://www.baltana.com/files/wallpapers-7/Numbers-Wallpaper-23226.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    padding: 130px 450px;
+    font-weight: bold;
+    font-size: 20px;
 }
-#buttonField {
+
+.calculator {
+    border-radius: 20px;
+    background: rgba(10, 10, 10, .5);
     border-style: solid;
     border-width: 2px;
-    border-color: black;
-    background-color: white;
+    border-color: white;
     height: 200px;
-    width: 500px;
+    width: 341px;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
+    margin: 50px auto 0;
+    padding: 10px 10px;
+}
+input {
+    width: 200px;
+    height: 50px;
+    margin: 15px;
+    border-radius: 2px;
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 5px;
+    overflow: hidden;
+    font-family: 'Black Ops One', cursive;
 }
 
 button {
-    width: 115px;
-    height: 60px;
-    margin: 2px;
+    width: 5.4vw;
+    text-align: center;
+    margin: 5px;
+    padding: 20px;
+    display: block;
+    height: 30px;
+
+    cursor: pointer;
+    font-size: 25px;
+    color: #F0F0F0;
+    border-radius: 10px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    -webkit-transition: background 0.05s linear;
+    -moz-transition: background 0.05s linear;
+    -o-transition: background 0.05s linear;
+    transition: background 0.05s linear;
+
+    background-size: 1px 200px;
 }
 
-input {text-align: right;
-    background-color: black;
-    width:490px;
-    height: 45px;
-    margin: 5px;
+button:hover {
+    background-position: 100px;
+}
+
+button:active {
+    box-shadow: 2px 2px 2px #777;
+    transform: translateY(3px);
+}
+.btn, .btn-large {
+    text-align: center;
+    color: black;
+    font-size: 1.2em;
+    font-family: 'Black Ops One', cursive;
 }
 
 
